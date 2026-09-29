@@ -11,16 +11,18 @@ import {
   UserCheck, 
   Menu, 
   X,
-  GraduationCap
+  GraduationCap,
+  Bot
 } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenProfile: () => void;
+  onOpenChat: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenProfile }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenProfile, onOpenChat }) => {
   const { profile, trackedApplications } = useCareer();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -92,8 +94,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenP
           })}
         </nav>
 
-        {/* Zone 3: Primary Action - Student Profile & Eligibility Badge */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Zone 3: Primary Action - AI Agent & Student Profile */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={onOpenChat}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-sm transition-all border border-blue-400/30 group"
+            title="Chat with n8n Placement AI Agent"
+          >
+            <Bot className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+            <span className="hidden md:inline">AI Placement Agent</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          </button>
+
           <button
             onClick={onOpenProfile}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-800 hover:border-slate-600 transition-colors text-left"
@@ -131,6 +143,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenP
             <span>{profile.college}</span>
             <span className="text-blue-400 font-mono text-[11px]">Passout {profile.gradYear.slice(0, 4)}</span>
           </div>
+
+          {/* AI Agent Quick Launcher in Mobile Menu */}
+          <button
+            onClick={() => {
+              onOpenChat();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white mb-2 shadow-sm"
+          >
+            <div className="flex items-center gap-3">
+              <Bot className="w-4 h-4" />
+              <span>AI Placement Agent (n8n)</span>
+            </div>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          </button>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

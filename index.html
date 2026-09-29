@@ -12,10 +12,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
   </head>
   <body class="bg-slate-900 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      try {
+        const { createChat } = await import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js');
+
+        createChat({
+          webhookUrl: 'https://akshaya66.app.n8n.cloud/webhook/7271425c-c4a1-4397-8bd1-ac3ac5e180a1/chat',
+          showWelcomeScreen: true,
+          defaultLanguage: 'en',
+          initialMessages: [
+            'Hi there! 👋',
+            'I am your CareerBridge Placement AI assistant. Ask me anything about recruitment drives, company interview rounds, DSA patterns, or resume tips!'
+          ],
+          i18n: {
+            en: {
+              title: 'CareerBridge Placement AI',
+              subtitle: 'Powered by n8n Agent',
+              footer: 'CareerBridge • B.Tech Batch 2026',
+              getStarted: 'Start Placement Chat',
+              inputPlaceholder: 'Ask about Amazon, Qualcomm, TCS, DSA...',
+            },
+          },
+        });
+      } catch (e) {
+        console.warn('n8n CDN widget deferred:', e);
+      }
+    </script>
   </body>
 </html>
 

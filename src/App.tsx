@@ -9,11 +9,13 @@ import { ResumeBuilder } from './components/ResumeBuilder';
 import { CtcCalculator } from './components/CtcCalculator';
 import { InterviewInsights } from './components/InterviewInsights';
 import { ProfileModal } from './components/ProfileModal';
-import { CheckCircle2 } from 'lucide-react';
+import { N8nChatModal } from './components/N8nChatModal';
+import { CheckCircle2, Bot } from 'lucide-react';
 
 const AppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('jobs');
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const { toastMessage } = useCareer();
 
   return (
@@ -23,6 +25,7 @@ const AppContent: React.FC = () => {
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         onOpenProfile={() => setIsProfileModalOpen(true)} 
+        onOpenChat={() => setIsChatModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -42,9 +45,32 @@ const AppContent: React.FC = () => {
         onClose={() => setIsProfileModalOpen(false)}
       />
 
+      {/* n8n Placement AI Chat Modal */}
+      <N8nChatModal
+        isOpen={isChatModalOpen}
+        onClose={() => setIsChatModalOpen(false)}
+      />
+
+      {/* Floating AI Agent Trigger Button (Always visible on all tabs) */}
+      {!isChatModalOpen && (
+        <button
+          onClick={() => setIsChatModalOpen(true)}
+          className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 group border border-blue-400/30"
+          aria-label="Open CareerBridge AI Placement Agent"
+        >
+          <div className="relative">
+            <Bot className="w-5 h-5 text-white" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-slate-900 animate-pulse" />
+          </div>
+          <span className="text-xs font-semibold tracking-wide">
+            Placement AI Agent
+          </span>
+        </button>
+      )}
+
       {/* Toast Notification Container */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 max-w-md animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="fixed bottom-5 left-5 z-50 bg-slate-900 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 max-w-md animate-in fade-in slide-in-from-bottom-2 duration-200">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="font-medium">{toastMessage}</span>
         </div>
