@@ -1,0 +1,6 @@
+{
+  "name": "CareerBridge – B.Tech Student Career & Job Platform",
+  "description": "Comprehensive career preparation, internship & job drive portal, placement tracker, and resume optimizer designed specifically for final-year B.Tech engineering students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
